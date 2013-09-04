@@ -1,0 +1,6 @@
+Aihe: Soluautomaattisimulaattori CellSim
+
+Toteutetaan soluautomaattisimulaattori, CellSim.
+
+Toimintoja:
+-
