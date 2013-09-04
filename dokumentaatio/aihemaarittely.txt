@@ -2,5 +2,13 @@ Aihe: Soluautomaattisimulaattori CellSim
 
 Toteutetaan soluautomaattisimulaattori, CellSim.
 
-Toimintoja:
--
+Käyttäjä: käyttäjä
+
+Mahdollisia toimintoja:
+-voi valita yksi tai kaksi ulotteisen automaatin
+-sisältää 'demoina' game of life:n, wolframin säännöt nro 30 ja nro 110
+-mahdollistaa omien sääntöjen säätämisen soluille
+  -esim naapuruston koko ja muoto valittavissa
+-simulaatiogridin koko valittavissa tietyissä rajoissa (tai antaa varoituksia jos tietty koko ylittyy)
+-voi tallentaa solun sen hetkisen tilan
+
