@@ -25,60 +25,41 @@ public class Simulator {
     }
 
     public void run(State state) {
-        int turn = 1;
-        String currentNeighborhood;
+        int t = 1;
         state.setCell(state.size() / 2, 1);
-
-        State temp = state.copyState();
 
         System.out.println("=================");
         System.out.println("Start simulation:");
         System.out.println("=================");
-        while (turn <= turns) {
-            for (int i = 0; i < state.size(); i++) {
-                if (i == 0) {
-                    currentNeighborhood = "" + state.getState()[state.size() - 1]
-                            + state.getState()[i] + state.getState()[(i + 1)];
-                } else if (i == state.size() - 1) {
-                    currentNeighborhood = "" + state.getState()[(i - 1)]
-                            + state.getState()[i] + state.getState()[0];
-                } else {
-                    currentNeighborhood = "" + state.getState()[(i - 1)]
-                            + state.getState()[i] + state.getState()[(i + 1)];
-                }
-                temp.setCell(i, rule.get(currentNeighborhood));
-            }
-            state = temp.copyState();
+        while (t <= turns) {
+            state = computeStep(state);
             state.printState();
-            turn++;
+            t++;
         }
     }
 
-    private void printRule() {
-        for (String s : neighborhoods) {
-            System.out.println("" + rule.get(s));
+    public State computeStep(State state) {
+        String currentNeighborhood;
+        State temp = state.copyState();
+
+        for (int i = 0; i < state.size(); i++) {
+            if (i == 0) {
+                currentNeighborhood = "" + state.getState()[state.size() - 1]
+                        + state.getState()[i] + state.getState()[(i + 1)];
+            } else if (i == state.size() - 1) {
+                currentNeighborhood = "" + state.getState()[(i - 1)]
+                        + state.getState()[i] + state.getState()[0];
+            } else {
+                currentNeighborhood = "" + state.getState()[(i - 1)]
+                        + state.getState()[i] + state.getState()[(i + 1)];
+            }
+            temp.setCell(i, rule.get(currentNeighborhood));
         }
+        state = temp.copyState();
+        return state;
     }
 
     private boolean createNeightborhood(int size) {
         return false;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Updater test");
-        State cells = new State(50);
-        String rule = "00011110";
-
-        for (String s : neighborhoods) {
-            System.out.println(s);
-        }
-
-        Simulator updater = new Simulator(10);
-        updater.setRule(rule);
-
-        updater.printRule();
-
-        //updater.run(cells);
-
     }
 }
