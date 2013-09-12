@@ -4,9 +4,9 @@ public class CellSim {
 
     public static void main(String[] args) {
         
-        State cells = new State(500);
+        State cells = new State(1000);
 
-        Simulator simulator = new Simulator(200);
+        Simulator simulator = new Simulator(500);
         String rule30 = "00011110";
         simulator.setRule(rule30);
         simulator.run(cells);

@@ -17,10 +17,6 @@ public class StateTest {
         state = new State(60);
     }
 
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void constructorInitializesStateCorrectly() {
         assertEquals("000000000000000000000000000000"
@@ -57,6 +53,19 @@ public class StateTest {
         state.resetState();
         assertEquals("000000000000000000000000000000"
                 + "000000000000000000000000000000", state.toString());
-        
+    }
+
+    /*@Test
+    public void printsStateCorrectly() {
+        for (int i = 0; i < state.size();) {
+            state.setCell(i, 1);
+            i += 4;
+        }
+    }*/
+
+    @Test
+    public void toStringWorksCorrectly() {
+        assertEquals("000000000000000000000000000000"
+                + "000000000000000000000000000000", state.toString());
     }
 }
