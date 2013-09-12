@@ -1,19 +1,29 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cellsim;
 
-/**
- *
- * @author Sami
- */
 public class CellSim {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        State cells = new State(500);
+
+        Simulator simulator = new Simulator(200);
+        String rule30 = "00011110";
+        simulator.setRule(rule30);
+        simulator.run(cells);
+        
+        cells.resetState();
+        String rule110 = "01101110";
+        simulator.setRule(rule110);
+        simulator.run(cells);
+        
+        /*
+        cells.resetState();
+        String randomRule = randomRule();
+        updater.setRule(randomRule);
+        updater.run(cells);*/
+    }
+
+    private static String randomRule() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
