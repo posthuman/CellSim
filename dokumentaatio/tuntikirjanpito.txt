@@ -2,15 +2,18 @@ Päivä	  Tunnit
 
 Viikko 36
 
-3.9	  2	  aiheen valinta, kertausta
-5.9	  2	  1. DL tekeminen
-8.9	  1.5 	  kertausta
+3.9	    2	  aiheen valinta, kertausta
+5.9	    2	  1. DL tekeminen
+8.9	    1.5	  kertausta
 
 Viikko 37
 
-9.9	  0.5 	  kertausta
-10.9	  2	  kertausta
-11.9	  2.5 	  1. prototyypin teko & suunnittelua
-12.9	  5 	  proton refaktorointia, testien tekoa, dokumentaatiota
+9.9	    0.5   kertausta
+10.9	    2	  kertausta
+11.9	    2.5	  1. prototyypin teko & suunnittelua
+12.9	    5 	  proton refaktorointia, testien tekoa, dokumentaatiota
 
 Viikko 38
+
+17.9        1     suunnittelua
+18.9 	    4     toteuttamista, suunnittelua
