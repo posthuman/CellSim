@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class StateTest {
+public class GridTest {
 
     Grid state;
 

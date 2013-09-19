@@ -17,3 +17,5 @@ Viikko 38
 
 17.9        1     suunnittelua
 18.9 	    4     toteuttamista, suunnittelua
+19.9	    4     simulator ja ruleset luokkien muokkausta, suunnittelua
+	    3	  dokumentointia, testejä
