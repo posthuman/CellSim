@@ -4,9 +4,9 @@ public class CellSim {
 
     public static void main(String[] args) {
 
-        Grid grid = new Grid(800);
+        Grid grid = new Grid(500);
         RuleSet ruleSet = new RuleSet("", 1, "00000000");
-        Simulator simulator = new Simulator(ruleSet, grid, 100);
+        Simulator simulator = new Simulator(ruleSet, grid, 200);
         Generator generator = new Generator();
 
         String rule30 = "00011110";
