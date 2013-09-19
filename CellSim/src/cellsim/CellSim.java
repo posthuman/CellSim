@@ -3,27 +3,31 @@ package cellsim;
 public class CellSim {
 
     public static void main(String[] args) {
-        
-        State cells = new State(850);
 
-        Simulator simulator = new Simulator(400);
+        Grid grid = new Grid(400);
+        RuleSet ruleSet = new RuleSet(1, "00000000");
+        Simulator simulator = new Simulator(ruleSet, grid, 200);
+        Generator generator = new Generator();
+
         String rule30 = "00011110";
-        simulator.setRule(rule30);
-        simulator.run(cells);
-        
-        cells.resetState();
-        String rule110 = "01101110";
-        simulator.setRule(rule110);
-        simulator.run(cells);
-        
-        /*
-        cells.resetState();
-        String randomRule = randomRule();
-        updater.setRule(randomRule);
-        updater.run(cells);*/
-    }
+        simulator.setRuleSet(new RuleSet(1, rule30));
+        simulator.run();
 
-    private static String randomRule() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String rule110 = "01101110";
+        simulator.setRuleSet(new RuleSet(1, rule110));
+        simulator.run();
+
+
+        for (int i = 0; i < 10; i++) {
+
+            String randomRule = generator.randomRuleSimple();
+            System.out.println("");
+            System.out.println("===============================");
+            System.out.println("Random rule generated: " + randomRule);
+            System.out.println("===============================");
+            System.out.println("");
+            simulator.setRuleSet(new RuleSet(1, randomRule));
+            simulator.run();
+        }
     }
 }

@@ -1,6 +1,6 @@
 package tests;
 
-import cellsim.State;
+import cellsim.Grid;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,11 +10,11 @@ import static org.junit.Assert.*;
 
 public class StateTest {
 
-    State state;
+    Grid state;
 
     @Before
     public void setUp() {
-        state = new State(60);
+        state = new Grid(60);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class StateTest {
             state.setCell(i, 1);
             i += 4;
         }
-        State copy = state.copyState();
+        Grid copy = state.copyGrid();
         assertEquals(state.toString(), copy.toString());
     }
 
@@ -50,7 +50,7 @@ public class StateTest {
             state.setCell(i, 1);
             i += 4;
         }
-        state.resetState();
+        state.resetGrid();
         assertEquals("000000000000000000000000000000"
                 + "000000000000000000000000000000", state.toString());
     }

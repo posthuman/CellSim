@@ -1,65 +1,58 @@
 package cellsim;
 
-import java.util.HashMap;
-
 public class Simulator {
 
-    private HashMap<String, Integer> rule;
+    private RuleSet ruleSet;
+    private Grid grid;
     private int turns;
-    private static final String[] neighborhoods = {"111", "110", "101", "100",
-        "011", "010", "001", "000"};
 
-    public Simulator() {
-        this(100);
-    }
-
-    public Simulator(int turns) {
-        rule = new HashMap<String, Integer>();
+    public Simulator(RuleSet ruleSet, Grid grid, int turns) {
+        this.ruleSet = ruleSet;
+        this.grid = grid;
         this.turns = turns;
     }
 
-    public void setRule(String newRule) {
-        for (int i = 0; i < neighborhoods.length; i++) {
-            rule.put(neighborhoods[i], Integer.parseInt("" + newRule.charAt(i)));
-        }
-    }
-
-    public void run(State state) {
+    public void run() {
         int t = 1;
-        state.setCell(state.size() / 2, 1);
+        Output output = new Output();
+        grid.resetGrid();
+        grid.setCell(grid.size() / 2, 1);
 
         System.out.println("=================");
         System.out.println("Start simulation:");
         System.out.println("=================");
         while (t <= turns) {
-            state = computeStep(state);
-            state.printState();
+            computeNextGeneration();
+            output.printGrid(grid);
             t++;
         }
     }
 
-    public State computeStep(State state) {
-        String currentNeighborhood;
-        State temp = state.copyState();
-
-        for (int i = 0; i < state.size(); i++) {
-            if (i == 0) {
-                currentNeighborhood = "" + state.getState()[state.size() - 1]
-                        + state.getState()[i] + state.getState()[(i + 1)];
-            } else if (i == state.size() - 1) {
-                currentNeighborhood = "" + state.getState()[(i - 1)]
-                        + state.getState()[i] + state.getState()[0];
-            } else {
-                currentNeighborhood = "" + state.getState()[(i - 1)]
-                        + state.getState()[i] + state.getState()[(i + 1)];
-            }
-            temp.setCell(i, rule.get(currentNeighborhood));
-        }
-        state = temp.copyState();
-        return state;
+    public void setRuleSet(RuleSet newRuleSet) {
+        this.ruleSet = newRuleSet;
     }
 
-    private boolean createNeightborhood(int size) {
-        return false;
+    public void computeNextGeneration() {
+        StringBuilder currentNeighborhood = new StringBuilder("000");
+        Grid temp = grid.copyGrid();
+
+        for (int i = 0; i < grid.size(); i++) {
+            currentNeighborhood.delete(0, 3);
+            if (i > 0 && i < grid.size() - 1) {
+                currentNeighborhood.append(grid.getCell()[i - 1]);
+                currentNeighborhood.append(grid.getCell()[i]);
+                currentNeighborhood.append(grid.getCell()[i + 1]);
+            } else if (i == 0) {
+                currentNeighborhood.append(grid.getCell()[grid.size() - 1]);
+                currentNeighborhood.append(grid.getCell()[i]);
+                currentNeighborhood.append(grid.getCell()[i + 1]);
+            } else {
+                currentNeighborhood.append(grid.getCell()[i - 1]);
+                currentNeighborhood.append(grid.getCell()[i]);
+                currentNeighborhood.append(grid.getCell()[0]);
+            }
+            temp.setCell(i, ruleSet.getUpdateRules().get(currentNeighborhood.toString()));
+        }
+        this.grid = temp.copyGrid();
     }
 }
