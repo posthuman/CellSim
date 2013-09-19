@@ -4,11 +4,13 @@ public class Simulator {
 
     private RuleSet ruleSet;
     private Grid grid;
+    private Grid temp;
     private int turns;
 
     public Simulator(RuleSet ruleSet, Grid grid, int turns) {
         this.ruleSet = ruleSet;
         this.grid = grid;
+        this.temp = grid.copyGrid();
         this.turns = turns;
     }
 
@@ -20,6 +22,7 @@ public class Simulator {
 
         System.out.println("=================");
         System.out.println("Start simulation:");
+        System.out.println(ruleSet);
         System.out.println("=================");
         while (t <= turns) {
             computeNextGeneration();
@@ -33,25 +36,36 @@ public class Simulator {
     }
 
     public void computeNextGeneration() {
-        StringBuilder currentNeighborhood = new StringBuilder("000");
-        Grid temp = grid.copyGrid();
+        int nSize = ruleSet.getNeighborhoodSize();
+        int nSpan = ruleSet.getNeighborhoodSize() / 2;
+        StringBuilder currentNeighborhood = new StringBuilder(nSize);
+
+        int cell;
 
         for (int i = 0; i < grid.size(); i++) {
-            currentNeighborhood.delete(0, 3);
-            if (i > 0 && i < grid.size() - 1) {
-                currentNeighborhood.append(grid.getCell()[i - 1]);
-                currentNeighborhood.append(grid.getCell()[i]);
-                currentNeighborhood.append(grid.getCell()[i + 1]);
-            } else if (i == 0) {
-                currentNeighborhood.append(grid.getCell()[grid.size() - 1]);
-                currentNeighborhood.append(grid.getCell()[i]);
-                currentNeighborhood.append(grid.getCell()[i + 1]);
+            currentNeighborhood.delete(0, nSize);
+
+            if (i > nSpan - 1 && i < grid.size() - nSpan) {
+                for (int j = nSpan; j >= -1*nSpan; j--) {
+                    currentNeighborhood.append(grid.getCell()[i - j]);
+                }
+            } else if (i < nSpan) {
+                for (int j = nSpan; j > 0; j--) {
+                    currentNeighborhood.append(grid.getCell()[grid.size() - j - 1]);
+                }
+                for (int j = 0; j <= nSpan; j++) {
+                    currentNeighborhood.append(grid.getCell()[j]);
+                }
             } else {
-                currentNeighborhood.append(grid.getCell()[i - 1]);
-                currentNeighborhood.append(grid.getCell()[i]);
-                currentNeighborhood.append(grid.getCell()[0]);
+                for (int j = nSpan - 1; j > -1*nSpan; j--) {
+                    currentNeighborhood.append(grid.getCell()[i - j - 1]);
+                }
+                for (int j = 0; j < 2; j++) {
+                    currentNeighborhood.append(grid.getCell()[j]);
+                }
             }
-            temp.setCell(i, ruleSet.getUpdateRules().get(currentNeighborhood.toString()));
+            cell = ruleSet.getCellValue(currentNeighborhood.toString());
+            temp.setCell(i, cell);
         }
         this.grid = temp.copyGrid();
     }

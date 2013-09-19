@@ -10,7 +10,6 @@ public class Generator {
         for (int i = 0; i < 8; i++) {
             randomRule += "" + random.nextInt(2);
         }
-
         return randomRule;
     }
 }
