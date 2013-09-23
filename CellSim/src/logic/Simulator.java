@@ -1,10 +1,17 @@
-package cellsim;
+package logic;
+
+import rules.Grid;
+import rules.RuleSet;
+import ui.Output;
+import java.util.ArrayList;
 
 public class Simulator {
 
+    private ArrayList<Grid> simulation = new ArrayList<>();
     private RuleSet ruleSet;
     private Grid grid;
     private Grid temp;
+    private Output output = new Output();
     private StringBuilder currentNeighborhood = new StringBuilder();
     private int nhSize;
     private int nhSpan;
@@ -15,16 +22,30 @@ public class Simulator {
         this.grid = grid;
         this.temp = grid.copyGrid();
         this.turns = turns;
+        this.nhSize = ruleSet.getNeighborhoodSize();
+        this.nhSpan = ruleSet.getNeighborhoodSize() / 2;
+        this.currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());
     }
 
+    /*public void setPrint(boolean value) {
+     print = value;
+     }
+
+     public void setSave(boolean value) {
+     save = value;
+     }*/
     public void run() {
+        run(false, true);
+    }
+
+    public void run(boolean p, boolean s) {
         int t = 1;
-        Output output = new Output();
+        simulation.clear();
+
+        //reset simulation settings
+        simulation.clear();
         grid.resetGrid();
-        grid.setCell(grid.size() / 2, 1);
-        nhSize = ruleSet.getNeighborhoodSize();
-        nhSpan = ruleSet.getNeighborhoodSize() / 2;
-        currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());
+        grid.setCell(grid.size() / 2, 1); //initial seed cell. TODO make configurable
 
         System.out.println("=================");
         System.out.println("Start simulation:");
@@ -32,13 +53,24 @@ public class Simulator {
         System.out.println("=================");
         while (t <= turns) {
             computeNextGeneration();
-            output.printGrid(grid);
+            simulation.add(grid);
             t++;
+        }
+        if (s) {
+            System.out.println("Simulation saved: " + output.saveToFile());
+        }
+
+        if (p) {
+            output.setSimulation(simulation);
+            output.renderSimulation();
         }
     }
 
     public void setRuleSet(RuleSet newRuleSet) {
-        this.ruleSet = newRuleSet;
+        ruleSet = newRuleSet;
+        nhSize = ruleSet.getNeighborhoodSize();
+        nhSpan = ruleSet.getNeighborhoodSize() / 2;
+        currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());
     }
 
     public void computeNextGeneration() {
@@ -57,21 +89,21 @@ public class Simulator {
 
         if (i > nhSpan - 1 && i < grid.size() - nhSpan) {
             for (int j = nhSpan; j >= -1 * nhSpan; j--) {
-                currentNeighborhood.append(grid.getCell()[i - j]);
+                currentNeighborhood.append(grid.getGrid()[i - j]);
             }
         } else if (i < nhSpan) {
             for (int j = nhSpan; j > 0; j--) {
-                currentNeighborhood.append(grid.getCell()[grid.size() - j - 1]);
+                currentNeighborhood.append(grid.getGrid()[grid.size() - j - 1]);
             }
             for (int j = 0; j <= nhSpan; j++) {
-                currentNeighborhood.append(grid.getCell()[j]);
+                currentNeighborhood.append(grid.getGrid()[j]);
             }
         } else {
             for (int j = nhSpan - 1; j > -1 * nhSpan; j--) {
-                currentNeighborhood.append(grid.getCell()[i - j - 1]);
+                currentNeighborhood.append(grid.getGrid()[i - j - 1]);
             }
             for (int j = 0; j < 2; j++) {
-                currentNeighborhood.append(grid.getCell()[j]);
+                currentNeighborhood.append(grid.getGrid()[j]);
             }
         }
     }

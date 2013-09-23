@@ -1,4 +1,4 @@
-package cellsim;
+package logic;
 
 import java.util.Random;
 

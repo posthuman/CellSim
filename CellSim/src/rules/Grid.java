@@ -1,4 +1,4 @@
-package cellsim;
+package rules;
 
 public class Grid {
 
@@ -12,7 +12,7 @@ public class Grid {
         this.grid = new int[size];
     }
 
-    public int[] getCell() {
+    public int[] getGrid() {
         return grid;
     }
 
@@ -35,7 +35,7 @@ public class Grid {
 
     public Grid copyGrid() {
         Grid copy = new Grid(grid.length);
-        System.arraycopy(grid, 0, copy.getCell(), 0, grid.length);
+        System.arraycopy(grid, 0, copy.getGrid(), 0, grid.length);
         return copy;
     }
 

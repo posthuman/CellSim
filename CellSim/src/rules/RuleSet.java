@@ -1,4 +1,4 @@
-package cellsim;
+package rules;
 
 import java.util.HashMap;
 
