@@ -1,21 +1,33 @@
 Päivä	  Tunnit	
 
-Viikko 36
+Viikko 36   5.5
 
 3.9	    2	  aiheen valinta, kertausta
 5.9	    2	  1. DL tekeminen
 8.9	    1.5	  kertausta
 
-Viikko 37
+Viikko 37  10
 
 9.9	    0.5   kertausta
 10.9	    2	  kertausta
 11.9	    2.5	  1. prototyypin teko & suunnittelua
 12.9	    5 	  proton refaktorointia, testien tekoa, dokumentaatiota
 
-Viikko 38
+Viikko 38  15
 
 17.9        1     suunnittelua
 18.9 	    4     toteuttamista, suunnittelua
-19.9	    4     simulator ja ruleset luokkien muokkausta, suunnittelua
-	    3	  dokumentointia, testejä
+19.9	    7     simulator ja ruleset luokkien muokkausta, suunnittelua, dokumentointia
+20.9	    2	  suunnittelua & ideointia
+21.9	    1	  suunnitelua
+
+Viikko 39
+
+23.9        2   luokkien output ja simulator toiminnallisuutta, paketointia
+24.9 	    0     x
+25.9	    0	  x
+26.7	    0     xXx
+
+Viikko 40
+
+Viikko 41
