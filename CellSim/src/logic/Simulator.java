@@ -66,7 +66,7 @@ public class Simulator {
         currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());
     }
 
-    public void computeNextGeneration() {
+    private void computeNextGeneration() {
         int cell;
 
         for (int i = 0; i < grid.size(); i++) {

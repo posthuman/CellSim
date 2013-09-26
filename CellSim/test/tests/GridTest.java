@@ -17,7 +17,7 @@ public class GridTest {
     }
 
     @Test
-    public void constructorInitializesStateCorrectly() {
+    public void constructorInitializesGridCorrectly() {
         assertEquals("000000000000000000000000000000"
                 + "000000000000000000000000000000", grid.toString());
     }

@@ -7,7 +7,7 @@ public class RuleSet {
     private String name = "";
     private HashMap<String, Integer> updateRules;
     private String[] neighborhoodPatterns;
-    private boolean syncronous = true;
+    private boolean syncronous = true; //asyncronous not implemented yet
     private static final String[] nb1 = {"111", "110", "101", "100",
         "011", "010", "001", "000"};
     private static final String[] nb2 = {"11111", "11110", "11101", "11011", "10111", "01111", "11100", "11010",
