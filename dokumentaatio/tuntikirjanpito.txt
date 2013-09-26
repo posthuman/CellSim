@@ -21,12 +21,11 @@ Viikko 38  15
 20.9	    2	  suunnittelua & ideointia
 21.9	    1	  suunnitelua
 
-Viikko 39
+Viikko 39   7
 
-23.9        2   luokkien output ja simulator toiminnallisuutta, paketointia
-24.9 	    0     x
-25.9	    0	  x
-26.7	    0     xXx
+23.9        2     luokkien output ja simulator toiminnallisuutta, paketointia
+25.9	    2.5	  kertausta (UML)
+26.7	    2.5   dokumentointia, mavenin kanssa tappelua (maven voitti ekan erän..)
 
 Viikko 40
 
