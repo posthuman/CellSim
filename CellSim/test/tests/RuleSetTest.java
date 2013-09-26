@@ -1,24 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tests;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import rules.RuleSet;
 
 public class RuleSetTest {
     
-    public RuleSetTest() {
-    }
-    
+    RuleSet ruleSet;
     
     @Before
     public void setUp() {
+        ruleSet = new RuleSet("Rule30", 1, "00011110");
     }
     
     @Test

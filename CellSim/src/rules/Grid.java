@@ -9,8 +9,12 @@ public class Grid {
     }
 
     public Grid(int size) {
-        this.grid = new int[size];
-    }
+        if (size < 1){
+            this.grid = new int[100];
+        }else{
+            this.grid = new int[size];
+        }
+    }   
 
     public int[] getGrid() {
         return grid;
@@ -20,13 +24,8 @@ public class Grid {
         return grid[i];
     }
 
-    public boolean setCell(int i, int newValue) {
-        try {
-            grid[i] = newValue;
-            return true;
-        } catch (Exception e) {
-        }
-        return false;
+    public void setCell(int i, int newValue) {
+        grid[i] = newValue;
     }
 
     public int size() {

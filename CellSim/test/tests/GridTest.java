@@ -1,16 +1,15 @@
 package tests;
 
+import java.util.Random;
 import rules.Grid;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GridTest {
 
     Grid grid;
+    Random random = new Random();
 
     @Before
     public void setUp() {
@@ -22,9 +21,17 @@ public class GridTest {
         assertEquals("000000000000000000000000000000"
                 + "000000000000000000000000000000", grid.toString());
     }
+    
+    @Test
+    public void constructorDoesntAcceptZeroOrLessValues() {
+        Grid gridZero = new Grid(0);
+        assertEquals(100, gridZero.size());
+        gridZero = new Grid(-1);
+        assertEquals(100, gridZero.size());
+    }
 
     @Test
-    public void setCellValue() {
+    public void setsCellValueCorrectly() {
         grid.setCell(25, 1);
         assertEquals(1, grid.getCell(25));
     }
@@ -38,7 +45,7 @@ public class GridTest {
     public void copiesStateCorrectly() {
         for (int i = 0; i < grid.size();) {
             grid.setCell(i, 1);
-            i += 4;
+            i += random.nextInt(9);
         }
         Grid copy = grid.copyGrid();
         assertEquals(grid.toString(), copy.toString());
@@ -48,24 +55,20 @@ public class GridTest {
     public void resetsStateCorrectly() {
         for (int i = 0; i < grid.size();) {
             grid.setCell(i, 1);
-            i += 4;
+            i += random.nextInt(9);
         }
         grid.resetGrid();
         assertEquals("000000000000000000000000000000"
                 + "000000000000000000000000000000", grid.toString());
     }
 
-    /*@Test
-    public void printsStateCorrectly() {
+    @Test
+    public void toStringWorksCorrectly() {
         for (int i = 0; i < grid.size();) {
             grid.setCell(i, 1);
             i += 4;
         }
-    }*/
-
-    @Test
-    public void toStringWorksCorrectly() {
-        assertEquals("000000000000000000000000000000"
-                + "000000000000000000000000000000", grid.toString());
+        assertEquals("100010001000100010001000100010"
+                + "001000100010001000100010001000", grid.toString());
     }
 }

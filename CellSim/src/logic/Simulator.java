@@ -27,13 +27,6 @@ public class Simulator {
         this.currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());
     }
 
-    /*public void setPrint(boolean value) {
-     print = value;
-     }
-
-     public void setSave(boolean value) {
-     save = value;
-     }*/
     public void run() {
         run(false, true);
     }

@@ -25,7 +25,7 @@ public class RuleSet {
         setUpdateRules(rule);
     }
 
-    public void setUpdateRules(String newRule) {
+    private void setUpdateRules(String newRule) {
         HashMap<String, Integer> newUpdateRules = new HashMap<>();
         for (int i = 0; i < neighborhoodPatterns.length; i++) {
             newUpdateRules.put(neighborhoodPatterns[i], Integer.parseInt("" + newRule.charAt(i)));

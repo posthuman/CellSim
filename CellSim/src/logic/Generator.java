@@ -3,7 +3,8 @@ package logic;
 import java.util.Random;
 
 public class Generator {
-
+    
+    //placeholder method
     public String randomRuleSimple() {
         Random random = new Random();
         String randomRule = "";
