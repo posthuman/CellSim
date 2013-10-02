@@ -28,8 +28,9 @@ Viikko 39  10
 26.7	    2.5   dokumentointia, mavenin kanssa tappelua (maven voitti ekan erän..)
 29.9	    3	  katselmoinnin tekemistä, minimitulos tehty (vaikea ymmärtää koodia)
 
-Viikko 40   4
+Viikko 40   5
 
 1.10	    4	  maven projektin luonti, jacocon käyttöönotto
+2.10	    1	  maven projektin pushaus, vanhan version poisto poisto
 
 Viikko 41
