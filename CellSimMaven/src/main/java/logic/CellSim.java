@@ -16,9 +16,9 @@ public class CellSim {
         simulator.setRuleSet(new RuleSet("Rule 30", 1, rule30));
         simulator.run(false, false);
 
-        /*String rule110 = "01101110";
+        String rule110 = "01101110";
         simulator.setRuleSet(new RuleSet("Rule 110", 1, rule110));
-        simulator.run();*/
+        simulator.run();
 
         String rule137 = "10001001";
         simulator.setRuleSet(new RuleSet("Rule 137", 1, rule137));
