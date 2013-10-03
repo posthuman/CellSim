@@ -8,7 +8,11 @@ import java.util.Random;
 
 public class Generator {
     
-    //placeholder method
+    /**
+     * Placeholder method that only generates random rule for elementary CA. 
+     * 
+     * @return Random string of 8 bits
+     */
     public String randomRuleSimple() {
         Random random = new Random();
         String randomRule = "";
