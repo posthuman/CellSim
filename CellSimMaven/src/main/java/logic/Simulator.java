@@ -5,6 +5,10 @@ import rules.RuleSet;
 import ui.Output;
 import java.util.ArrayList;
 
+/**
+ * @author Sami Kosonen
+ * @version 0.3
+ */
 public class Simulator {
 
     private ArrayList<Grid> simulation = new ArrayList<>();

@@ -2,7 +2,8 @@
 package logic;
 
 /**
- * @author Sami
+ * @author Sami Kosonen
+ * @version x
  */
 public class Analyzator {
 

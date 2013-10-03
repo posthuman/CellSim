@@ -2,6 +2,10 @@ package rules;
 
 import java.util.HashMap;
 
+/**
+ * @author Sami Kosonen
+ * @version 0.3
+ */
 public class RuleSet {
 
     private String name = "";

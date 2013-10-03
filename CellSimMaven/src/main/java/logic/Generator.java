@@ -1,5 +1,9 @@
 package logic;
 
+/**
+ * @author Sami Kosonen
+ * @version 0.1
+ */
 import java.util.Random;
 
 public class Generator {

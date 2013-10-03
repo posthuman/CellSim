@@ -1,5 +1,9 @@
 package rules;
 
+/**
+ * @author Sami Kosonen
+ * @version 0.3
+ */
 public class Grid {
 
     private int[] grid;

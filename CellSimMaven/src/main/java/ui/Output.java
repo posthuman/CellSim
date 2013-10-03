@@ -3,6 +3,10 @@ package ui;
 import rules.Grid;
 import java.util.ArrayList;
 
+/**
+ * @author Sami Kosonen
+ * @version 0.3
+ */
 public class Output {
 
     private ArrayList<Grid> simulation;
