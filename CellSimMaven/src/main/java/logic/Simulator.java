@@ -62,6 +62,16 @@ public class Simulator {
         run(false, true, 100);
     }
 
+    
+/**
+ * Run simulation using ruleSet specified for simulator. Clears any previously used 
+ * values so that same simulator object can be used to run multiple ruleSets.
+ *
+ * @param   print   Specifies if result is printed after simulation is over.
+ * @param   save    Specifies if simulation is saved for later use.
+ * @param   turns   Number of turns simulation is run.
+ */
+    
     public void run(boolean print, boolean save, int turns) {
         int t = 1;
 
