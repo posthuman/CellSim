@@ -1,10 +1,10 @@
 Päivä	  Tunnit	
 
-Viikko 36   5.5
+Viikko 36   6
 
 3.9	    2	  aiheen valinta, kertausta
 5.9	    2	  1. DL tekeminen
-8.9	    1.5	  kertausta
+8.9	    2	  kertausta
 
 Viikko 37  10
 
@@ -26,11 +26,16 @@ Viikko 39  10
 23.9        2     luokkien output ja simulator toiminnallisuutta, paketointia
 25.9	    2.5	  kertausta (UML)
 26.7	    2.5   dokumentointia, mavenin kanssa tappelua (maven voitti ekan erän..)
-29.9	    3	  katselmoinnin tekemistä, minimitulos tehty (vaikea ymmärtää koodia)
+29.9	    3	  katselmoinnin tekemistä
 
-Viikko 40   5
+Viikko 40   9
 
 1.10	    4	  maven projektin luonti, jacocon käyttöönotto
-2.10	    1	  maven projektin pushaus, vanhan version poisto poisto
+2.10	    1	  maven projektin pushaus, vanhan version poisto
+3.10	    4	  testeja, dokumentointia
 
 Viikko 41
+
+Viikko 42
+
+Yhteensä:  50
