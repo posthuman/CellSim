@@ -15,14 +15,18 @@ public class RuleSet {
         "11000", "10100", "01100", "10010", "01010", "00110", "10001", "01001",
         "00101", "00011", "10000", "01000", "00100", "00010", "00001", "00000"};
 
-    public RuleSet(String name, int neighborhoodSize, String rule) {
-        if (neighborhoodSize == 1) {
+    public RuleSet(String name, int neighborhoodSpan, String rule) {
+        if (neighborhoodSpan == 1) {
             neighborhoodPatterns = nb1;
         } else {
             neighborhoodPatterns = nb2;
         }
         this.name = name;
         setUpdateRules(rule);
+    }
+
+    public String getName() {
+        return name;
     }
 
     private void setUpdateRules(String newRule) {

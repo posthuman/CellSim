@@ -17,29 +17,61 @@ public class Simulator {
     private int nhSpan;
     private int turns;
 
-    public Simulator(RuleSet ruleSet, Grid grid, int turns) {
+    public Simulator(RuleSet ruleSet, Grid grid) {
         this.ruleSet = ruleSet;
         this.grid = grid;
         this.temp = grid.copyGrid();
-        this.turns = turns;
         this.nhSize = ruleSet.getNeighborhoodSize();
         this.nhSpan = ruleSet.getNeighborhoodSize() / 2;
         this.currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());
     }
 
-    public void run() {
-        run(false, true);
+    public ArrayList<Grid> getSimulation() {
+        return simulation;
     }
 
-    public void run(boolean p, boolean s) {
+    public RuleSet getRuleSet() {
+        return ruleSet;
+    }
+
+    public Grid getGrid() {
+        return grid;
+    }
+
+    public Grid getTemp() {
+        return temp;
+    }
+
+    public int getNhSize() {
+        return nhSize;
+    }
+
+    public int getNhSpan() {
+        return nhSpan;
+    }
+
+    public int getTurns() {
+        return turns;
+    }
+
+    public StringBuilder getCurrentNeighborhood() {
+        return currentNeighborhood;
+    }
+
+    public void run() {
+        run(false, true, 100);
+    }
+
+    public void run(boolean print, boolean save, int turns) {
         int t = 1;
-        simulation.clear();
 
         //reset simulation settings
+        this.turns = turns;
         simulation.clear();
         grid.resetGrid();
         grid.setCell(grid.size() / 2, 1); //initial seed cell. TODO make configurable
-
+        simulation.add(grid);
+        
         System.out.println("=================");
         System.out.println("Start simulation:");
         System.out.println(ruleSet);
@@ -49,11 +81,11 @@ public class Simulator {
             simulation.add(grid);
             t++;
         }
-        if (s) {
+        if (save) {
             System.out.println("Simulation saved: " + output.saveToFile());
         }
 
-        if (p) {
+        if (print) {
             output.setSimulation(simulation);
             output.renderSimulation();
         }

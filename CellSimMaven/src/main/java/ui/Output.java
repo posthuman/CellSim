@@ -36,8 +36,8 @@ public class Output {
             }
         }
     }
-    
-    public boolean saveToFile(){
+
+    public boolean saveToFile() {
         //TODO
         return false;
     }

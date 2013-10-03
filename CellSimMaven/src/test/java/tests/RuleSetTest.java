@@ -31,16 +31,12 @@ public class RuleSetTest {
         assertEquals(3, ruleSet.getNeighborhoodSize());
     }
     
-    //nonsensical test atm
     @Test
     public void returnsUpdateRulesCorrectly() {
-        assertEquals(ruleSet.getUpdateRules(), ruleSet.getUpdateRules());
     }
 
-    //nonsensical test atm
     @Test
     public void toStringReturnsCorrectString() {
-        assertEquals(ruleSet.toString(), ruleSet.toString());
     }
 
     @Test
