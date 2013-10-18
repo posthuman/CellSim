@@ -2,11 +2,12 @@ package rules;
 
 /**
  * @author Sami Kosonen
- * @version 0.3
+ * @version 0.8
  */
 public class Grid {
 
-    private int[] grid;
+    private byte[] grid;
+    private StringBuilder gridString;
 
     public Grid() {
         this(100);
@@ -14,22 +15,26 @@ public class Grid {
 
     public Grid(int size) {
         if (size < 1){
-            this.grid = new int[100];
+            this.grid = new byte[100];
         }else{
-            this.grid = new int[size];
+            this.grid = new byte[size];
         }
     }   
 
-    public int[] getGrid() {
+    public byte[] getGrid() {
         return grid;
     }
 
-    public int getCell(int i) {
+    public byte getCell(int i) {
         return grid[i];
     }
 
-    public void setCell(int i, int newValue) {
+    public void setCell(int i, byte newValue) {
         grid[i] = newValue;
+    }
+
+    public void setGrid(byte[] grid) {
+        this.grid = grid;
     }
 
     public int size() {
@@ -43,14 +48,15 @@ public class Grid {
     }
 
     public void resetGrid() {
-        grid = new int[grid.length];
+        grid = new byte[grid.length];
     }
 
     @Override
     public String toString() {
+        gridString = new StringBuilder("");
         String s = "";
         for (int i : grid) {
-            s += "" + i;
+            s+=i;
         }
         return s;
     }

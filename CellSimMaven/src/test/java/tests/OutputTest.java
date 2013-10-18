@@ -1,10 +1,10 @@
 package tests;
 
-import java.util.ArrayList;
+
+import logic.Simulation;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import rules.Grid;
 import ui.Output;
 
 public class OutputTest {
@@ -13,7 +13,7 @@ public class OutputTest {
 
     @Before
     public void setUp() {
-        output = new Output(new ArrayList<Grid>());
+        output = new Output();
     }
 
     @Test

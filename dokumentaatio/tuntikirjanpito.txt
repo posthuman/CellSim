@@ -8,9 +8,9 @@ Viikko 36   6
 
 Viikko 37  10
 
-9.9	    0.5   kertausta
+9.9	    1     kertausta
 10.9	    2	  kertausta
-11.9	    2.5	  1. prototyypin teko & suunnittelua
+11.9	    2	  1. prototyypin teko & suunnittelua
 12.9	    5 	  proton refaktorointia, testien tekoa, dokumentaatiota
 
 Viikko 38  15
@@ -24,8 +24,8 @@ Viikko 38  15
 Viikko 39  10
 
 23.9        2     luokkien output ja simulator toiminnallisuutta, paketointia
-25.9	    2.5	  kertausta (UML)
-26.7	    2.5   dokumentointia, mavenin kanssa tappelua (maven voitti ekan erän..)
+25.9	    3	  kertausta (UML)
+26.7	    2     dokumentointia, mavenin kanssa tappelua (maven voitti ekan erän..)
 29.9	    3	  katselmoinnin tekemistä
 
 Viikko 40   9
@@ -34,8 +34,16 @@ Viikko 40   9
 2.10	    1	  maven projektin pushaus, vanhan version poisto
 3.10	    4	  testeja, dokumentointia
 
-Viikko 41
+Viikko 41   4
 
-Viikko 42
+12.10	    2	  käyttöliittymän tekoa
+13.10	    2     käyttöliittymän tekoa, dokumentointia
 
-Yhteensä:  50
+Viikko 42  21
+
+15.10       2     tallennus-ominaisuus, refaktorointia
+16.10       5	  käyttöliittymän tekoa
+17.10	    8	  käyttöliittymän tekoa, dokumentointia, testejä	
+18.10	    6	  refaktorointia, testejä, dokumentointia
+
+Yhteensä:  75

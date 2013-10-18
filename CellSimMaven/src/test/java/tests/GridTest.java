@@ -38,7 +38,7 @@ public class GridTest {
 
     @Test
     public void setsCellValueCorrectly() {
-        grid.setCell(25, 1);
+        grid.setCell(25, (byte)1);
         assertEquals(1, grid.getCell(25));
     }
 
@@ -50,7 +50,7 @@ public class GridTest {
     @Test
     public void copiesStateCorrectly() {
         for (int i = 0; i < grid.size();) {
-            grid.setCell(i, 1);
+            grid.setCell(i, (byte)1);
             i += random.nextInt(9);
         }
         Grid copy = grid.copyGrid();
@@ -60,7 +60,7 @@ public class GridTest {
     @Test
     public void resetsStateCorrectly() {
         for (int i = 0; i < grid.size();) {
-            grid.setCell(i, 1);
+            grid.setCell(i, (byte)1);
             i += random.nextInt(9);
         }
         grid.resetGrid();
@@ -71,7 +71,7 @@ public class GridTest {
     @Test
     public void toStringWorksCorrectly() {
         for (int i = 0; i < grid.size();) {
-            grid.setCell(i, 1);
+            grid.setCell(i, (byte)1);
             i += 4;
         }
         assertEquals("100010001000100010001000100010"

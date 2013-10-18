@@ -13,12 +13,12 @@ public class SimulatorTest {
 
     @Before
     public void setUp() {
-        sim = new Simulator(new RuleSet("Rule30", 1, "00011110"), new Grid(50));
+        sim = new Simulator(new RuleSet(1, "00011110"), new Grid(50));
     }
 
     @Test
     public void initializesSimulatorValuesCorrectly() {
-        assertEquals(0, sim.getTurns());
+        assertEquals(100, sim.getGenerations());
         assertEquals(3, sim.getNhSize());
         assertEquals(1, sim.getNhSpan());
         assertEquals(3, sim.getCurrentNeighborhood().length());
@@ -27,16 +27,17 @@ public class SimulatorTest {
 
     @Test
     public void updatesRuleSetCorrectly() {
-        sim.setRuleSet(new RuleSet("randomrule", 1, "00110001"));
+        sim.setRuleSet(new RuleSet(1, "00110001"));
         assertEquals(3, sim.getRuleSet().getNeighborhoodSize());
-        assertEquals("randomrule", sim.getRuleSet().getName());
+        assertEquals("Rule00110001", sim.getRuleSet().getName());
     }
 
     @Test
     public void runsSimulationCorrectly() {
-        sim.run(true, true, 20);
+        sim.setGenerations(20);
+        sim.run(true, true);
         String s = "";
-        for (Grid g : sim.getSimulation()) {
+        for (Grid g : sim.getSimulation().getSimulation()) {
             s += g.toString();
         }
         assertEquals(
@@ -59,8 +60,7 @@ public class SimulatorTest {
                 + "00000000011001000111001111010000111000000100000000"
                 + "00000000110111101100111000011001100100001110000000"
                 + "00000001100100001011100100110111011110011001000000"
-                + "00000011011110011010011111100100010001110111100000"
-                + "00000110010001110011110000011110111011000100010000", s);
+                + "00000011011110011010011111100100010001110111100000", s);
     }
     //@Test
     //public void test(){}

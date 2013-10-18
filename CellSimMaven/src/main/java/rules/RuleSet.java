@@ -4,13 +4,14 @@ import java.util.HashMap;
 
 /**
  * @author Sami Kosonen
- * @version 0.3
+ * @version 0.8
  */
 public class RuleSet {
 
     private String name = "";
-    private HashMap<String, Integer> updateRules;
+    private HashMap<String, Byte> updateRules;
     private String[] neighborhoodPatterns;
+    private String rule;
     private boolean syncronous = true; //asyncronous not implemented yet
     private static final String[] nb1 = {"111", "110", "101", "100",
         "011", "010", "001", "000"};
@@ -19,13 +20,14 @@ public class RuleSet {
         "11000", "10100", "01100", "10010", "01010", "00110", "10001", "01001",
         "00101", "00011", "10000", "01000", "00100", "00010", "00001", "00000"};
 
-    public RuleSet(String name, int neighborhoodSpan, String rule) {
+    public RuleSet(int neighborhoodSpan, String rule) {
+        this.rule = rule;
         if (neighborhoodSpan == 1) {
             neighborhoodPatterns = nb1;
         } else {
             neighborhoodPatterns = nb2;
         }
-        this.name = name;
+        this.name = "Rule" + this.rule;
         setUpdateRules(rule);
     }
 
@@ -33,24 +35,44 @@ public class RuleSet {
         return name;
     }
 
+    public String getRule() {
+        return rule;
+    }
+
     private void setUpdateRules(String newRule) {
-        HashMap<String, Integer> newUpdateRules = new HashMap<>();
+        HashMap<String, Byte> newUpdateRules = new HashMap<>();
         for (int i = 0; i < neighborhoodPatterns.length; i++) {
-            newUpdateRules.put(neighborhoodPatterns[i], Integer.parseInt("" + newRule.charAt(i)));
+            newUpdateRules.put(neighborhoodPatterns[i], (byte) Integer.parseInt("" + newRule.charAt(i)));
         }
         updateRules = newUpdateRules;
     }
 
-    public HashMap<String, Integer> getUpdateRules() {
+    public HashMap<String, Byte> getUpdateRules() {
         return updateRules;
     }
-    
-    public int getCellValue(String pattern){  
+
+    public byte getCellValue(String pattern) {
         return updateRules.get(pattern);
     }
 
     public int getNeighborhoodSize() {
         return neighborhoodPatterns[0].length();
+    }
+
+    public boolean isValidRule(String rule) {
+        if (rule == null) {
+            return false;
+        }
+        if (!(rule.length() == 8 || rule.length() == 32)) {
+            return false;
+        } else {
+            for (int i = 0; i < rule.length(); i++) {
+                if (!(rule.charAt(i) == '0' || rule.charAt(i) == '1')) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private String updateRulesToString() {
@@ -62,7 +84,7 @@ public class RuleSet {
 
         s += "|";
         String blanks = "";
-        for (int i = 0; i < getNeighborhoodSize()/2; i++) {
+        for (int i = 0; i < getNeighborhoodSize() / 2; i++) {
             blanks += " ";
         }
         for (String k : updateRules.keySet()) {

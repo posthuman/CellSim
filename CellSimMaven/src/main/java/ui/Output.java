@@ -1,30 +1,31 @@
 package ui;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import rules.Grid;
-import java.util.ArrayList;
+import logic.Simulation;
 
 /**
  * @author Sami Kosonen
- * @version 0.3
+ * @version 0.8
  */
 public class Output {
 
-    private ArrayList<Grid> simulation;
+    private Simulation simulation;
 
     public Output() {
-        simulation = new ArrayList<>();
     }
 
-    public Output(ArrayList<Grid> sim) {
+    public Output(Simulation sim) {
         this.simulation = sim;
     }
 
-    public void setSimulation(ArrayList<Grid> newSimulation) {
-        simulation = newSimulation;
+    public void setSimulation(Simulation newSim) {
+        this.simulation = newSim;
     }
 
     public void renderSimulation() {
-        for (Grid g : simulation) {
+        for (Grid g : simulation.getSimulation()) {
             renderGrid(g);
             System.out.println("");
         }
@@ -41,8 +42,40 @@ public class Output {
         }
     }
 
+    private void writeSimulationToFile(String fileName) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+
+            writer.write(simulation.getName());
+            writer.newLine();
+            writer.newLine();
+
+            for (Grid g : simulation.getSimulation()) {
+
+                writeGridToFile(writer, g);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (Exception e) {
+        }
+    }
+
+    private void writeGridToFile(BufferedWriter writer, Grid g) throws Exception {
+        for (byte b : g.getGrid()) {
+            if (b == 0) {
+                writer.write(" ");
+            } else {
+                writer.write("o");
+            }
+        }
+    }
+
     public boolean saveToFile() {
-        //TODO
-        return false;
+        try {
+            writeSimulationToFile(simulation.getName() + ".txt");
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
