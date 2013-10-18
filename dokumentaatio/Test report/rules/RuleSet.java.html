@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RuleSet.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CellSimMaven</a> &gt; <a href="index.html" class="el_package">rules</a> &gt; <span class="el_source">RuleSet.java</span></div><h1>RuleSet.java</h1><pre class="source lang-java linenums">package rules;
+
+import java.util.HashMap;
+
+/**
+ * RuleSet represents rules used in simulation. Different rules produce
+ * different cellular automata.
+ *
+ * @author Sami Kosonen
+ * @version 0.8
+ * @param name Name of RuleSet. Generated automatically.
+ * @param updateRules HashMap with neighborhood pattern as key and cell value as target.
+ * @param rule Given rule that is mapped to neighborhood patterns.
+ */
+public class RuleSet {
+
+<span class="fc" id="L17">    private String name = &quot;&quot;;</span>
+    private HashMap&lt;String, Byte&gt; updateRules;
+    private String[] neighborhoodPatterns; //automatic generation method not yet implemented.
+    private String rule;
+<span class="fc" id="L21">    private boolean syncronous = true; //asyncronous not implemented yet</span>
+<span class="fc" id="L22">    private static final String[] nb1 = {&quot;111&quot;, &quot;110&quot;, &quot;101&quot;, &quot;100&quot;,</span>
+        &quot;011&quot;, &quot;010&quot;, &quot;001&quot;, &quot;000&quot;};
+<span class="fc" id="L24">    private static final String[] nb2 = {&quot;11111&quot;, &quot;11110&quot;, &quot;11101&quot;, &quot;11011&quot;, &quot;10111&quot;, &quot;01111&quot;, &quot;11100&quot;, &quot;11010&quot;,</span>
+        &quot;10110&quot;, &quot;01110&quot;, &quot;11001&quot;, &quot;10101&quot;, &quot;01101&quot;, &quot;10011&quot;, &quot;01011&quot;, &quot;00111&quot;,
+        &quot;11000&quot;, &quot;10100&quot;, &quot;01100&quot;, &quot;10010&quot;, &quot;01010&quot;, &quot;00110&quot;, &quot;10001&quot;, &quot;01001&quot;,
+        &quot;00101&quot;, &quot;00011&quot;, &quot;10000&quot;, &quot;01000&quot;, &quot;00100&quot;, &quot;00010&quot;, &quot;00001&quot;, &quot;00000&quot;};
+
+<span class="fc" id="L29">    public RuleSet(int neighborhoodSpan, String rule) {</span>
+<span class="fc" id="L30">        this.rule = rule;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (neighborhoodSpan == 1) {</span>
+<span class="fc" id="L32">            neighborhoodPatterns = nb1;</span>
+        } else {
+<span class="fc" id="L34">            neighborhoodPatterns = nb2;</span>
+        }
+<span class="fc" id="L36">        this.name = &quot;Rule&quot; + this.rule;</span>
+<span class="fc" id="L37">        setUpdateRules(rule);</span>
+<span class="fc" id="L38">    }</span>
+
+    public String getName() {
+<span class="fc" id="L41">        return name;</span>
+    }
+
+    public String getRule() {
+<span class="fc" id="L45">        return rule;</span>
+    }
+    
+    /**
+     * Matches given rule string to all different neighborhoods.
+     * 
+     * @param newRule New rule.
+     */
+    private void setUpdateRules(String newRule) {
+<span class="fc" id="L54">        HashMap&lt;String, Byte&gt; newUpdateRules = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        for (int i = 0; i &lt; neighborhoodPatterns.length; i++) {</span>
+<span class="fc" id="L56">            newUpdateRules.put(neighborhoodPatterns[i], (byte) Integer.parseInt(&quot;&quot; + newRule.charAt(i)));</span>
+        }
+<span class="fc" id="L58">        updateRules = newUpdateRules;</span>
+<span class="fc" id="L59">    }</span>
+
+    public HashMap&lt;String, Byte&gt; getUpdateRules() {
+<span class="nc" id="L62">        return updateRules;</span>
+    }
+
+    public byte getCellValue(String pattern) {
+<span class="fc" id="L66">        return updateRules.get(pattern);</span>
+    }
+
+    public int getNeighborhoodSize() {
+<span class="fc" id="L70">        return neighborhoodPatterns[0].length();</span>
+    }
+
+    /**
+     * Checks if given string is valid rule. Returns boolean.
+     * 
+     * @param ruleCandidate Candidate rule to be evaluated.
+     * @return Boolean of result of evaluation.
+     */
+    
+    public boolean isValidRule(String ruleCandidate) {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (ruleCandidate == null) {</span>
+<span class="fc" id="L82">            return false;</span>
+        }
+<span class="fc bfc" id="L84" title="All 4 branches covered.">        if (!(ruleCandidate.length() == 8 || ruleCandidate.length() == 32)) {</span>
+<span class="fc" id="L85">            return false;</span>
+        } else {
+<span class="fc bfc" id="L87" title="All 2 branches covered.">            for (int i = 0; i &lt; ruleCandidate.length(); i++) {</span>
+<span class="fc bfc" id="L88" title="All 4 branches covered.">                if (!(ruleCandidate.charAt(i) == '0' || ruleCandidate.charAt(i) == '1')) {</span>
+<span class="fc" id="L89">                    return false;</span>
+                }
+            }
+        }
+<span class="fc" id="L93">        return true;</span>
+    }
+
+    private String updateRulesToString() {
+<span class="fc" id="L97">        String s = &quot;|&quot;;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        for (String k : updateRules.keySet()) {</span>
+<span class="fc" id="L99">            s += k + &quot;|&quot;;</span>
+<span class="fc" id="L100">        }</span>
+<span class="fc" id="L101">        s += &quot;\n&quot;;</span>
+
+<span class="fc" id="L103">        s += &quot;|&quot;;</span>
+<span class="fc" id="L104">        String blanks = &quot;&quot;;</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (int i = 0; i &lt; getNeighborhoodSize() / 2; i++) {</span>
+<span class="fc" id="L106">            blanks += &quot; &quot;;</span>
+        }
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        for (String k : updateRules.keySet()) {</span>
+<span class="fc" id="L109">            s += blanks + updateRules.get(k) + blanks + &quot;|&quot;;</span>
+<span class="fc" id="L110">        }</span>
+<span class="fc" id="L111">        return s;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L116">        String s = &quot;Ruleset parameters: \n&quot;;</span>
+<span class="fc" id="L117">        s += this.name + &quot;\n&quot;;</span>
+<span class="fc" id="L118">        s += &quot;Neighborhood size: &quot; + getNeighborhoodSize() + &quot;\n&quot;;</span>
+<span class="fc" id="L119">        s += &quot;Rule table: \n&quot;;</span>
+<span class="fc" id="L120">        s += updateRulesToString();</span>
+<span class="fc" id="L121">        return s;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.3.201306030806</span></div></body></html>

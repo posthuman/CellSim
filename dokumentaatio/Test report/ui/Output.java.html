@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Output.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CellSimMaven</a> &gt; <a href="index.html" class="el_package">ui</a> &gt; <span class="el_source">Output.java</span></div><h1>Output.java</h1><pre class="source lang-java linenums">package ui;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import rules.Grid;
+import logic.Simulation;
+
+/**
+ * This class prints simulations on console and saves them on text files
+ * with name of simulation.
+ * 
+ * @author Sami Kosonen
+ * @version 0.8
+ * @param simulation Simulation that output class handless.
+ */
+public class Output {
+
+    private Simulation simulation;
+
+<span class="fc" id="L20">    public Output() {</span>
+<span class="fc" id="L21">    }</span>
+
+<span class="fc" id="L23">    public Output(Simulation sim) {</span>
+<span class="fc" id="L24">        this.simulation = sim;</span>
+<span class="fc" id="L25">    }</span>
+
+    public void setSimulation(Simulation newSim) {
+<span class="fc" id="L28">        this.simulation = newSim;</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Prints simulation to console.
+     */
+    public void renderSimulation() {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        for (Grid g : simulation.getSimulation()) {</span>
+<span class="fc" id="L36">            renderGrid(g);</span>
+<span class="fc" id="L37">            System.out.println(&quot;&quot;);</span>
+<span class="fc" id="L38">        }</span>
+<span class="fc" id="L39">        System.out.println(&quot;&quot;);</span>
+<span class="fc" id="L40">    }</span>
+
+    /**
+     * Private method to print one grid to console.
+     * 
+     * @param grid Grid to print
+     */
+    private void renderGrid(Grid grid) {
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        for (int i : grid.getGrid()) {</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">            if (i == 0) {</span>
+<span class="fc" id="L50">                System.out.print(&quot; &quot;);</span>
+            } else {
+<span class="fc" id="L52">                System.out.print(&quot;o&quot;);</span>
+            }
+        }
+<span class="fc" id="L55">    }</span>
+
+    private void writeSimulationToFile(String fileName) {
+        try {
+<span class="fc" id="L59">            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));</span>
+
+<span class="fc" id="L61">            writer.write(simulation.getName());</span>
+<span class="fc" id="L62">            writer.newLine();</span>
+<span class="fc" id="L63">            writer.newLine();</span>
+
+<span class="fc bfc" id="L65" title="All 2 branches covered.">            for (Grid g : simulation.getSimulation()) {</span>
+
+<span class="fc" id="L67">                writeGridToFile(writer, g);</span>
+<span class="fc" id="L68">                writer.newLine();</span>
+<span class="fc" id="L69">            }</span>
+<span class="fc" id="L70">            writer.close();</span>
+<span class="nc" id="L71">        } catch (Exception e) {</span>
+<span class="fc" id="L72">        }</span>
+<span class="fc" id="L73">    }</span>
+
+    private void writeGridToFile(BufferedWriter writer, Grid g) throws Exception {
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        for (byte b : g.getGrid()) {</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">            if (b == 0) {</span>
+<span class="fc" id="L78">                writer.write(&quot; &quot;);</span>
+            } else {
+<span class="fc" id="L80">                writer.write(&quot;o&quot;);</span>
+            }
+        }
+<span class="fc" id="L83">    }</span>
+    
+    /**
+     * Saves simulation to txt file with name of simulation as filename.
+     * 
+     * @return Boolean telling if save successful or not.
+     */
+
+    public boolean saveToFile() {
+        try {
+<span class="fc" id="L93">            writeSimulationToFile(simulation.getName() + &quot;.txt&quot;);</span>
+<span class="fc" id="L94">            return true;</span>
+<span class="nc" id="L95">        } catch (Exception e) {</span>
+<span class="nc" id="L96">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.3.201306030806</span></div></body></html>

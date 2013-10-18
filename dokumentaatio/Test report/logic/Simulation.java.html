@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Simulation.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CellSimMaven</a> &gt; <a href="index.html" class="el_package">logic</a> &gt; <span class="el_source">Simulation.java</span></div><h1>Simulation.java</h1><pre class="source lang-java linenums">package logic;
+
+import java.util.ArrayList;
+import rules.Grid;
+import rules.RuleSet;
+
+/**
+ * Wrapper class for one full simulation. Used by output class in forming save
+ * files and printing results.
+ * 
+ * @author Sami
+ * @version 0.8
+ * @param simulation Array of generations calculated by simulator.
+ * @param name Automatically generated name based on update rule.
+ * @param ruleSet ruleset used to create simulation.
+ */
+public class Simulation {
+
+    private ArrayList&lt;Grid&gt; simulation;
+    private String name;
+    private RuleSet ruleSet;
+
+<span class="fc" id="L23">    public Simulation(RuleSet ruleSet, int gridSize, int generations) {</span>
+<span class="fc" id="L24">        this.simulation = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L25">        this.ruleSet = ruleSet;</span>
+<span class="fc" id="L26">        this.name = ruleSet.getName() + &quot;_&quot; + gridSize + &quot;x&quot; + generations;</span>
+<span class="fc" id="L27">    }</span>
+
+    public String getName() {
+<span class="fc" id="L30">        return name;</span>
+    }
+
+    public RuleSet getRuleSet() {
+<span class="nc" id="L34">        return ruleSet;</span>
+    }
+
+    public ArrayList&lt;Grid&gt; getSimulation() {
+<span class="fc" id="L38">        return simulation;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.3.201306030806</span></div></body></html>

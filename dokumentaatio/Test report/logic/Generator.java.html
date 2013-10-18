@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Generator.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CellSimMaven</a> &gt; <a href="index.html" class="el_package">logic</a> &gt; <span class="el_source">Generator.java</span></div><h1>Generator.java</h1><pre class="source lang-java linenums">package logic;
+
+/**
+ * Generates random RuleSet's and returns them. All methods static.
+ * 
+ * @author Sami Kosonen
+ * @version 0.5
+ */
+import java.util.Random;
+import rules.RuleSet;
+
+<span class="fc" id="L12">public class Generator {</span>
+
+    /**
+     * Generates random new RuleSet and returns it. Generates with equal
+     * probability RuleSet's with neighborhood span of 1 or 2. No parameters.
+     *
+     * @return Returns new random RuleSet that is instantiated fully.
+     */
+    public static RuleSet generateRandomRuleSet() {
+<span class="fc" id="L21">        Random random = new Random();</span>
+        String rule;
+        RuleSet randomRS;
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (random.nextInt(2) == 0) {</span>
+<span class="fc" id="L25">            rule = randomRule(8);</span>
+<span class="fc" id="L26">            randomRS = new RuleSet(1, rule);</span>
+        } else {
+<span class="fc" id="L28">            rule = randomRule(32);</span>
+<span class="fc" id="L29">            randomRS = new RuleSet(2, rule);</span>
+        }
+<span class="fc" id="L31">        return randomRS;</span>
+    }
+
+    /**
+     * Helper method that generates random rule for elementary CA.
+     *
+     * @param length Length of generated rule.
+     * @return Random string representing binary rule.
+     */
+    private static String randomRule(int length) {
+<span class="fc" id="L41">        Random random = new Random();</span>
+<span class="fc" id="L42">        String randomRule = &quot;&quot;;</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc" id="L44">            randomRule += &quot;&quot; + random.nextInt(2);</span>
+        }
+<span class="fc" id="L46">        return randomRule;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.3.201306030806</span></div></body></html>

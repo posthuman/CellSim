@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Simulator.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CellSimMaven</a> &gt; <a href="index.html" class="el_package">logic</a> &gt; <span class="el_source">Simulator.java</span></div><h1>Simulator.java</h1><pre class="source lang-java linenums">package logic;
+
+import rules.Grid;
+import rules.RuleSet;
+import ui.Output;
+
+/**
+ * This class simulates cellular automata using given RuleSet. 
+ * Size of simulation is specified by grid and generations
+ * attributes.
+ * 
+ * @author Sami Kosonen
+ * @version 0.8
+ * @param simulation Results of one run of simulation.
+ * @param ruleSet RuleSet used in simulation.
+ * @param grid Grid used in simulation.
+ * @param tempGrid Temporal grid of same size as grid used in simulation.
+ * @param nhSize Size of neighborhood.
+ * @param nhSpan Span of neighborhood.
+ * @param generations Number of generations simulation is run.
+ */
+public class Simulator {
+
+    private Simulation simulation;
+    private RuleSet ruleSet;
+    private Grid grid;
+    private Grid tempGrid;
+<span class="fc" id="L28">    private StringBuilder currentNeighborhood = new StringBuilder();</span>
+    private int nhSize;
+    private int nhSpan;
+    private int generations;
+
+<span class="fc" id="L33">    public Simulator(RuleSet ruleSet, Grid grid) {</span>
+
+<span class="fc" id="L35">        this.ruleSet = ruleSet;</span>
+<span class="fc" id="L36">        this.grid = grid;</span>
+<span class="fc" id="L37">        this.tempGrid = grid.copyGrid();</span>
+<span class="fc" id="L38">        this.nhSize = ruleSet.getNeighborhoodSize();</span>
+<span class="fc" id="L39">        this.nhSpan = ruleSet.getNeighborhoodSize() / 2;</span>
+<span class="fc" id="L40">        this.currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());</span>
+<span class="fc" id="L41">        this.generations = 100;</span>
+<span class="fc" id="L42">        simulation = new Simulation(ruleSet, grid.size(), generations);</span>
+<span class="fc" id="L43">    }</span>
+
+    public Simulation getSimulation() {
+<span class="fc" id="L46">        return simulation;</span>
+    }
+
+    public RuleSet getRuleSet() {
+<span class="fc" id="L50">        return ruleSet;</span>
+    }
+
+    public Grid getGrid() {
+<span class="fc" id="L54">        return grid;</span>
+    }
+
+    public Grid getTemp() {
+<span class="nc" id="L58">        return tempGrid;</span>
+    }
+
+    public int getNhSize() {
+<span class="fc" id="L62">        return nhSize;</span>
+    }
+
+    public int getNhSpan() {
+<span class="fc" id="L66">        return nhSpan;</span>
+    }
+
+    public int getGenerations() {
+<span class="fc" id="L70">        return generations;</span>
+    }
+
+    public StringBuilder getCurrentNeighborhood() {
+<span class="fc" id="L74">        return currentNeighborhood;</span>
+    }
+
+    public void setGenerations(int generations) {
+<span class="fc" id="L78">        this.generations = generations;</span>
+<span class="fc" id="L79">    }</span>
+
+    public void setGrid(Grid grid) {
+<span class="nc" id="L82">        this.grid = grid;</span>
+<span class="nc" id="L83">        this.tempGrid = grid.copyGrid();</span>
+<span class="nc" id="L84">    }</span>
+
+    public void setSimulation(Simulation simulation) {
+<span class="nc" id="L87">        this.simulation = simulation;</span>
+<span class="nc" id="L88">    }</span>
+
+    /**
+     * Run simulation using ruleSet specified for simulator. Clears any
+     * previously used values so that same simulator object can be used to run
+     * multiple ruleSets.
+     *
+     * @param print Specifies if result is printed after simulation is over.
+     * @param save Specifies if simulation is saved for later use.
+     * @param generations Number of generations (i.e. turns) simulation is run.
+     */
+    public void run(boolean print, boolean save) {
+<span class="fc" id="L100">        int t = 2;</span>
+
+        //reset simulation settings
+<span class="fc" id="L103">        simulation = new Simulation(ruleSet, grid.size(), generations);</span>
+<span class="fc" id="L104">        Output output = new Output(simulation);</span>
+<span class="fc" id="L105">        simulation.getSimulation().clear();</span>
+<span class="fc" id="L106">        grid.resetGrid();</span>
+<span class="fc" id="L107">        grid.setCell(grid.size() / 2, (byte) 1); //initial seed cell. TODO make configurable</span>
+<span class="fc" id="L108">        simulation.getSimulation().add(grid);</span>
+
+<span class="fc" id="L110">        System.out.println(&quot;=================&quot;);</span>
+<span class="fc" id="L111">        System.out.println(&quot;Start simulation:&quot;);</span>
+<span class="fc" id="L112">        System.out.println(ruleSet.toString());</span>
+<span class="fc" id="L113">        System.out.println(&quot;=================&quot;);</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        while (t &lt;= generations) {</span>
+<span class="fc" id="L115">            computeNextGeneration();</span>
+<span class="fc" id="L116">            simulation.getSimulation().add(grid);</span>
+<span class="fc" id="L117">            t++;</span>
+        }
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if (save) {</span>
+<span class="fc" id="L120">            System.out.println(&quot;Simulation saved: &quot; + output.saveToFile());</span>
+        }
+
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">        if (print) {</span>
+<span class="fc" id="L124">            output.setSimulation(simulation);</span>
+<span class="fc" id="L125">            output.renderSimulation();</span>
+        }
+<span class="fc" id="L127">    }</span>
+
+    /**
+     * Can be used to replace simulators ruleSet with new one.
+     * 
+     * @param newRuleSet New RuleSet used in replacing old. 
+     */
+    public void setRuleSet(RuleSet newRuleSet) {
+<span class="fc" id="L135">        ruleSet = newRuleSet;</span>
+<span class="fc" id="L136">        nhSize = ruleSet.getNeighborhoodSize();</span>
+<span class="fc" id="L137">        nhSpan = ruleSet.getNeighborhoodSize() / 2;</span>
+<span class="fc" id="L138">        currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());</span>
+<span class="fc" id="L139">    }</span>
+
+    /**
+     * Private method that computes next generation.
+     */
+    private void computeNextGeneration() {
+        byte cell;
+
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        for (int i = 0; i &lt; grid.size(); i++) {</span>
+<span class="fc" id="L148">            determineCurrentNeighborhood(i);</span>
+<span class="fc" id="L149">            cell = (byte) ruleSet.getCellValue(currentNeighborhood.toString());</span>
+<span class="fc" id="L150">            tempGrid.setCell(i, cell);</span>
+        }
+<span class="fc" id="L152">        this.grid = tempGrid.copyGrid();</span>
+<span class="fc" id="L153">    }</span>
+
+    /**
+     * Determines neighborhood of given cell in index i in grid. 
+     * 
+     * @param i Index of grid.
+     */
+    private void determineCurrentNeighborhood(int i) {
+<span class="fc" id="L161">        currentNeighborhood.delete(0, nhSize);</span>
+
+<span class="fc bfc" id="L163" title="All 4 branches covered.">        if (i &gt; nhSpan - 1 &amp;&amp; i &lt; grid.size() - nhSpan) {</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">            for (int j = nhSpan; j &gt;= -1 * nhSpan; j--) {</span>
+<span class="fc" id="L165">                currentNeighborhood.append(grid.getGrid()[i - j]);</span>
+            }
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        } else if (i &lt; nhSpan) {</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">            for (int j = nhSpan; j &gt; 0; j--) {</span>
+<span class="fc" id="L169">                currentNeighborhood.append(grid.getGrid()[grid.size() - j - 1]);</span>
+            }
+<span class="fc bfc" id="L171" title="All 2 branches covered.">            for (int j = 0; j &lt;= nhSpan; j++) {</span>
+<span class="fc" id="L172">                currentNeighborhood.append(grid.getGrid()[j]);</span>
+            }
+        } else {
+<span class="fc bfc" id="L175" title="All 2 branches covered.">            for (int j = nhSpan - 1; j &gt; -1 * nhSpan; j--) {</span>
+<span class="fc" id="L176">                currentNeighborhood.append(grid.getGrid()[i - j - 1]);</span>
+            }
+<span class="fc bfc" id="L178" title="All 2 branches covered.">            for (int j = 0; j &lt; 2; j++) {</span>
+<span class="fc" id="L179">                currentNeighborhood.append(grid.getGrid()[j]);</span>
+            }
+        }
+<span class="fc" id="L182">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.3.201306030806</span></div></body></html>
