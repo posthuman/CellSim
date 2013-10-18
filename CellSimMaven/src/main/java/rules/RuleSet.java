@@ -3,16 +3,20 @@ package rules;
 import java.util.HashMap;
 
 /**
- * RuleSet represents rules used to 
- * 
+ * RuleSet represents rules used in simulation. Different rules produce
+ * different cellular automata.
+ *
  * @author Sami Kosonen
  * @version 0.8
+ * @param name Name of RuleSet. Generated automatically.
+ * @param updateRules HashMap with neighborhood pattern as key and cell value as target.
+ * @param rule Given rule that is mapped to neighborhood patterns.
  */
 public class RuleSet {
 
     private String name = "";
     private HashMap<String, Byte> updateRules;
-    private String[] neighborhoodPatterns;
+    private String[] neighborhoodPatterns; //automatic generation method not yet implemented.
     private String rule;
     private boolean syncronous = true; //asyncronous not implemented yet
     private static final String[] nb1 = {"111", "110", "101", "100",
@@ -40,7 +44,12 @@ public class RuleSet {
     public String getRule() {
         return rule;
     }
-
+    
+    /**
+     * Matches given rule string to all different neighborhoods.
+     * 
+     * @param newRule New rule.
+     */
     private void setUpdateRules(String newRule) {
         HashMap<String, Byte> newUpdateRules = new HashMap<>();
         for (int i = 0; i < neighborhoodPatterns.length; i++) {
@@ -61,15 +70,22 @@ public class RuleSet {
         return neighborhoodPatterns[0].length();
     }
 
-    public boolean isValidRule(String rule) {
-        if (rule == null) {
+    /**
+     * Checks if given string is valid rule. Returns boolean.
+     * 
+     * @param ruleCandidate Candidate rule to be evaluated.
+     * @return Boolean of result of evaluation.
+     */
+    
+    public boolean isValidRule(String ruleCandidate) {
+        if (ruleCandidate == null) {
             return false;
         }
-        if (!(rule.length() == 8 || rule.length() == 32)) {
+        if (!(ruleCandidate.length() == 8 || ruleCandidate.length() == 32)) {
             return false;
         } else {
-            for (int i = 0; i < rule.length(); i++) {
-                if (!(rule.charAt(i) == '0' || rule.charAt(i) == '1')) {
+            for (int i = 0; i < ruleCandidate.length(); i++) {
+                if (!(ruleCandidate.charAt(i) == '0' || ruleCandidate.charAt(i) == '1')) {
                     return false;
                 }
             }
