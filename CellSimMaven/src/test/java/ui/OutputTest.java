@@ -1,4 +1,4 @@
-package tests;
+package ui;
 
 
 import logic.Simulation;

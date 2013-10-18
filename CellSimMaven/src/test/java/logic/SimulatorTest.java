@@ -1,4 +1,4 @@
-package tests;
+package logic;
 
 import logic.Simulator;
 import org.junit.Before;
