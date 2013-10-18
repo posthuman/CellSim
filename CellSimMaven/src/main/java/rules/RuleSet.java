@@ -3,6 +3,8 @@ package rules;
 import java.util.HashMap;
 
 /**
+ * RuleSet represents rules used to 
+ * 
  * @author Sami Kosonen
  * @version 0.8
  */

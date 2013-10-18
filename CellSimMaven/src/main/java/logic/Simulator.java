@@ -5,15 +5,26 @@ import rules.RuleSet;
 import ui.Output;
 
 /**
+ * This class simulates cellular automata using given RuleSet. 
+ * Size of simulation is specified by grid and generations
+ * attributes.
+ * 
  * @author Sami Kosonen
  * @version 0.8
+ * @param simulation Results of one run of simulation.
+ * @param ruleSet RuleSet used in simulation.
+ * @param grid Grid used in simulation.
+ * @param tempGrid Temporal grid of same size as grid used in simulation.
+ * @param nhSize Size of neighborhood.
+ * @param nhSpan Span of neighborhood.
+ * @param generations Number of generations simulation is run.
  */
 public class Simulator {
 
     private Simulation simulation;
     private RuleSet ruleSet;
     private Grid grid;
-    private Grid temp;
+    private Grid tempGrid;
     private StringBuilder currentNeighborhood = new StringBuilder();
     private int nhSize;
     private int nhSpan;
@@ -23,7 +34,7 @@ public class Simulator {
 
         this.ruleSet = ruleSet;
         this.grid = grid;
-        this.temp = grid.copyGrid();
+        this.tempGrid = grid.copyGrid();
         this.nhSize = ruleSet.getNeighborhoodSize();
         this.nhSpan = ruleSet.getNeighborhoodSize() / 2;
         this.currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());
@@ -44,7 +55,7 @@ public class Simulator {
     }
 
     public Grid getTemp() {
-        return temp;
+        return tempGrid;
     }
 
     public int getNhSize() {
@@ -69,7 +80,7 @@ public class Simulator {
 
     public void setGrid(Grid grid) {
         this.grid = grid;
-        this.temp = grid.copyGrid();
+        this.tempGrid = grid.copyGrid();
     }
 
     public void setSimulation(Simulation simulation) {
@@ -115,6 +126,11 @@ public class Simulator {
         }
     }
 
+    /**
+     * Can be used to replace simulators ruleSet with new one.
+     * 
+     * @param newRuleSet New RuleSet used in replacing old. 
+     */
     public void setRuleSet(RuleSet newRuleSet) {
         ruleSet = newRuleSet;
         nhSize = ruleSet.getNeighborhoodSize();
@@ -122,17 +138,25 @@ public class Simulator {
         currentNeighborhood.setLength(ruleSet.getNeighborhoodSize());
     }
 
+    /**
+     * Private method that computes next generation.
+     */
     private void computeNextGeneration() {
         byte cell;
 
         for (int i = 0; i < grid.size(); i++) {
             determineCurrentNeighborhood(i);
             cell = (byte) ruleSet.getCellValue(currentNeighborhood.toString());
-            temp.setCell(i, cell);
+            tempGrid.setCell(i, cell);
         }
-        this.grid = temp.copyGrid();
+        this.grid = tempGrid.copyGrid();
     }
 
+    /**
+     * Determines neighborhood of given cell in index i in grid. 
+     * 
+     * @param i Index of grid.
+     */
     private void determineCurrentNeighborhood(int i) {
         currentNeighborhood.delete(0, nhSize);
 

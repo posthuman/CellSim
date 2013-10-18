@@ -6,8 +6,12 @@ import rules.Grid;
 import logic.Simulation;
 
 /**
+ * This class prints simulations on console and saves them on text files
+ * with name of simulation.
+ * 
  * @author Sami Kosonen
  * @version 0.8
+ * @param simulation Simulation that output class handless.
  */
 public class Output {
 
@@ -24,6 +28,9 @@ public class Output {
         this.simulation = newSim;
     }
 
+    /**
+     * Prints simulation to console.
+     */
     public void renderSimulation() {
         for (Grid g : simulation.getSimulation()) {
             renderGrid(g);
@@ -32,6 +39,11 @@ public class Output {
         System.out.println("");
     }
 
+    /**
+     * Private method to print one grid to console.
+     * 
+     * @param grid Grid to print
+     */
     private void renderGrid(Grid grid) {
         for (int i : grid.getGrid()) {
             if (i == 0) {
@@ -69,6 +81,12 @@ public class Output {
             }
         }
     }
+    
+    /**
+     * Saves simulation to txt file with name of simulation as filename.
+     * 
+     * @return Boolean telling if save successful or not.
+     */
 
     public boolean saveToFile() {
         try {

@@ -1,0 +1,24 @@
+Rule11000000010111100000101010100111_22x22
+
+           o          
+ooooooooooo  ooooooooo
+oooooooooo  o  ooooooo
+ooooooooo     o  ooooo
+oooooooo  oooo  o  ooo
+ooooooo  o  o     o  o
+  oooo        oooo  o 
+    o  oooooo   o     
+oooo  o  ooo  oo  oooo
+ooo     o o  o   o  oo
+    oooooo     oo  o  
+ooo   ooo  ooo       o
+    o  o  o o  ooooo  
+oooo      oo  o  oo  o
+  o  oooo       o   o 
+    o  o  oooooo  oo  
+oooo     o  ooo  o   o
+  o  oooo  o o     o  
+oo  o  o   oo  oooo  o
+         o    o  o  o 
+  ooooooo  ooo        
+oo  oooo  o o  ooooooo

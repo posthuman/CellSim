@@ -1,10 +1,10 @@
 package logic;
 
-import rules.Grid;
-import rules.RuleSet;
 import ui.CellSimUI;
 
 /**
+ * Starts user interface. No other functionality.
+ * 
  * @author Sami Kosonen
  * @version 0.8
  */

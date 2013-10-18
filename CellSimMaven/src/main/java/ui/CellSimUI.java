@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import javax.swing.JOptionPane;
@@ -11,26 +7,23 @@ import rules.Grid;
 import rules.RuleSet;
 
 /**
+ * Graphical user interface for launching and configuring simulations of cellular
+ * automata. Output of simulations are saved on text file using Output class.
+ * User gives inputs via dialog input windows. Every input is validated and 
+ * simulator updated automatically after each change.
  *
- * @author Sami
+ * @author Sami Kosonen
+ * @version 0.8
+ * @param  simulator Simulator used to run simulations.
+ * @param numberOfRandomCA Number of random CA simulated. Default value 0.
  */
 public class CellSimUI extends javax.swing.JFrame {
 
-    private RuleSet ruleSet;
     private Simulator simulator;
-    private Grid grid;
-    private String rule;
-    private int nbhSpan;
-    private int gen;
     private int numberOfRandomCA = 0;
 
     public CellSimUI() {
-        grid = new Grid();
-        ruleSet = new RuleSet(1, "10001001");
-        simulator = new Simulator(ruleSet, grid);
-        rule = ruleSet.getRule();
-        nbhSpan = 1;
-        gen = 100;
+        simulator = new Simulator(new RuleSet(1, "10001001"), new Grid());
         initComponents();
     }
 
@@ -72,7 +65,7 @@ public class CellSimUI extends javax.swing.JFrame {
 
         jLabel7.setText("Grid size:");
 
-        jButton6.setText(this.rule);
+        jButton6.setText(simulator.getRuleSet().getRule());
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -252,9 +245,9 @@ public class CellSimUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //set print, save options, update simulator values
-        simulator.setRuleSet(ruleSet);
+        /*simulator.setRuleSet(ruleSet);
         simulator.setGrid(grid);
-        simulator.setGenerations(gen);
+        simulator.setGenerations(gen);*/
 
         boolean print = yesOrNo(jComboBox3.getSelectedItem().toString());
         boolean save = yesOrNo(jComboBox2.getSelectedItem().toString());
@@ -308,8 +301,7 @@ public class CellSimUI extends javax.swing.JFrame {
 
         if (answer.length() > 0) {
             int x = Integer.parseInt(answer);
-            gen = x;
-            simulator.setGenerations(gen);
+            simulator.setGenerations(x);
             jButton5.setText(answer);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -324,16 +316,13 @@ public class CellSimUI extends javax.swing.JFrame {
                 break;
             }
 
-            if (ruleSet.isValidRule(ruleCandidate)) {
-                this.rule = ruleCandidate;
-                jButton6.setText(rule);
+            if (simulator.getRuleSet().isValidRule(ruleCandidate)) {
+                jButton6.setText(ruleCandidate);
                 if (ruleCandidate.length() < 32) {
-                    nbhSpan = 1;
+                    simulator.setRuleSet(new RuleSet(1, ruleCandidate));
                 } else {
-                    nbhSpan = 2;
+                    simulator.setRuleSet(new RuleSet(2, ruleCandidate));
                 }
-                ruleSet = new RuleSet(nbhSpan, rule);
-                simulator.setRuleSet(ruleSet);
                 break;
             }
             ruleCandidate = JOptionPane.showInputDialog(rootPane, "You didn't input valid rule.\n"
@@ -349,12 +338,19 @@ public class CellSimUI extends javax.swing.JFrame {
         String answer = validatedIntegerInputDialog(min, max);
 
         if (answer.length() > 0) {
-            this.grid = new Grid(Integer.parseInt(answer));
-            this.simulator.setGrid(grid);
+            this.simulator.setGrid(new Grid(Integer.parseInt(answer)));
             jButton7.setText(answer);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    /**
+     * Private method to validate that strings given by user are integers and in
+     * specified range. Asks for valid input until given one or dialog panel closed.
+     * 
+     * @param min Minimum value for valid integer.
+     * @param max Maximum value for valid integer.
+     * @return String that is valid integer specified.
+     */
     private String validatedIntegerInputDialog(int min, int max) {
         String answer = JOptionPane.showInputDialog(rootPane, "Give an integer between " + min + " and " + max + ".");
 
@@ -374,11 +370,26 @@ public class CellSimUI extends javax.swing.JFrame {
         }
         return answer;
     }
+    
+    /**
+     * Validates that given string is integer.
+     * 
+     * @param s String to validate.
+     * @return Return boolean for result.
+     */
 
     private boolean isValidInteger(String s) {
         return isValidInteger(s, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
+    /**
+     * Validates that given string is integer and in specified range.
+     * 
+     * @param s String to validate.
+     * @param min Minimum value for valid integer.
+     * @param max Maximum value for valid integer.
+     * @return Boolean for result.
+     */
     private boolean isValidInteger(String s, int min, int max) {
         if (s == null) {
             return false;
